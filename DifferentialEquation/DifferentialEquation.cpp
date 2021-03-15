@@ -15,10 +15,9 @@ auto create_iterators(Container &state, Stepper &stepper, Func &func, double t0,
 }
 
 int main() {
-  constexpr auto gamma = 0.15;
   std::vector<double> state{0.0, 1.0};
   boost::numeric::odeint::runge_kutta4<std::vector<double>> stepper;
-  const auto harmonic_oscillator = [&gamma](const std::vector<double> &x,
+  const auto harmonic_oscillator = [gamma = 0.15](const std::vector<double> &x,
                                             std::vector<double> &dxdt,
                                             double t) {
     dxdt[0] = x[1];
