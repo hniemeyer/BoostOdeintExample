@@ -2,6 +2,17 @@
 #include <boost/numeric/odeint.hpp>
 #include <fmt/core.h>
 #include <vector>
+#include <utility>
+
+template <typename Container, typename Func>
+auto create_iterators(Container& state, boost::numeric::odeint::runge_kutta4<Container>& stepper, Func& func, double t0, double tmax, double dt)
+{
+    return std::make_pair(boost::numeric::odeint::make_const_step_time_iterator_begin(
+        stepper, func, state, t0, tmax, dt),
+        boost::numeric::odeint::make_const_step_time_iterator_end(
+            stepper, func, state));
+	
+}
 
 int main() {
   constexpr auto gamma = 0.15;
@@ -14,12 +25,7 @@ int main() {
     dxdt[1] = -x[0] - gamma * x[1];
   };
 
-  const auto ode_begin_iterator =
-      boost::numeric::odeint::make_const_step_time_iterator_begin(
-          stepper, harmonic_oscillator, state, 0.0, 10.0, 0.1);
-  const auto ode_end_iterator =
-      boost::numeric::odeint::make_const_step_time_iterator_end(
-          stepper, harmonic_oscillator, state);
+  auto [ode_begin_iterator, ode_end_iterator] = create_iterators(state, stepper, harmonic_oscillator, 0.0, 10.0, 0.1);
   for (auto ode_iterator = ode_begin_iterator; ode_iterator != ode_end_iterator;
        ++ode_iterator) {
     const auto &[current_state, time] = *ode_iterator;
