@@ -17,7 +17,7 @@ auto create_iterators(Container &state, Stepper &stepper, Func &func, double t0,
 template <typename Container, typename Func>
 void solve_and_print(Container& state, Func& func, double t0, double tmax, double dt)
 {
-	boost::numeric::odeint::runge_kutta4<std::vector<double>> stepper;
+	boost::numeric::odeint::runge_kutta4<Container> stepper;
 	
 	auto [ode_begin_iterator, ode_end_iterator] =
 		create_iterators(state, stepper, func, t0, tmax, dt);
