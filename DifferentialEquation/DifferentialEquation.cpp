@@ -18,8 +18,8 @@ int main() {
   std::vector<double> state{0.0, 1.0};
   boost::numeric::odeint::runge_kutta4<std::vector<double>> stepper;
   const auto harmonic_oscillator = [gamma = 0.15](const std::vector<double> &x,
-                                            std::vector<double> &dxdt,
-                                            double t) {
+                                                  std::vector<double> &dxdt,
+                                                  double t) {
     dxdt[0] = x[1];
     dxdt[1] = -x[0] - gamma * x[1];
   };
