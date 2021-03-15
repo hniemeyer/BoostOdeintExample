@@ -22,8 +22,8 @@ int main() {
           stepper, harmonic_oscillator, state);
   for (auto ode_iterator = ode_begin_iterator; ode_iterator != ode_end_iterator;
        ++ode_iterator) {
-    const auto state_pair = *ode_iterator;
-    fmt::print("t = {} x = {} p = {}\n", state_pair.second, state_pair.first[0],
-               state_pair.first[1]);
+    const auto &[current_state, time] = *ode_iterator;
+    fmt::print("t = {} x = {} p = {}\n", time, current_state[0],
+               current_state[1]);
   }
 }
