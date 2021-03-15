@@ -1,8 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <boost/numeric/odeint.hpp>
-#include <fmt/core.h>
 #include <utility>
 #include <vector>
+#include <boost/numeric/odeint.hpp>
+#include <fmt/core.h>
 
 template <typename Container, typename Func, typename Stepper>
 auto create_iterators(Container &state, Stepper &stepper, Func &func, double t0,
